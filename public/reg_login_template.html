@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>NKUST Register</title>
+<style>
+	body
+	{
+		font-family : Microsoft JhengHei;
+		background-color : white;
+		background-image : url('/img/default_bg');
+		background-size : cover;
+	}
+	hr
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	.chs_title
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+		font-size : 40px;
+		
+	}
+	.client_area
+	{
+		position : fixed;
+		z-index: 1;
+		left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* disable scroll */
+    background-color : rgba(0,0,0,0);
+	}
+	#reg_panel
+	{
+		position : fixed;
+		z-index : 2;
+		left : 0;
+		top : 0;
+		height : 100%;
+		width : 640px;
+		box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+	}
+	#caption
+	{
+		position : absolute;
+		left : 0px;
+		top : 0px;
+		width : 100%;
+		height : 60px;
+	}
+	.child_panel
+	{
+		position : absolute;
+		width : 630px;
+		left : 5px;
+	}
+	#name_box
+	{
+		top : 100px;
+		height : 100px;
+	}
+	#reg_form
+	{
+		bottom : 60px;
+	}
+	#reg_btn
+	{
+		position : absolute;
+		left : 5px;
+		width : 320px;
+		height : 40px;
+		color : white;
+		background-color : #0077CC;
+		box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+		border-width : 0px;
+	}
+	/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+</style>
+</head>
+<body>
+<div class="client_area animate">
+	<div id="reg_panel" >
+		<div class="chs_title" id="caption">Register<hr></div>
+		<div class="child_panel" id="name_box">
+		</div>
+		<form class="child_panel" id="reg_form" method="post">
+				<button id="reg_btn" type="submit" form="reg_form">Register</button>
+		</form>
+	</div>
+</div>
+</body>
+</html>

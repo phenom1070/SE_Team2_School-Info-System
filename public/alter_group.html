@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add/Remove group</title>
+<style>
+	body
+	{
+		font-family : Microsoft JhengHei;
+		background-color : white;
+	}
+	hr
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	label
+	{
+		position : absolute;
+		white-space : nowrap;
+	}
+	form
+	{
+		visibility : hidden;
+	}
+	.chs_title
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+		font-size : 40px;
+		
+	}
+	.chs_errindicator
+	{
+		position : absolute;
+		white-space : nowrap;
+		color : red;
+	}
+	.client_area
+	{
+		position : fixed;
+		z-index: 1;
+		left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
+    background-color : rgba(0,0,0,0);
+	}
+	.chs_combobox
+	{
+		position : absolute;
+		height : 30px;
+		font-size : 20px;
+		border-style : solid;
+		border-width : 2px;
+		border-color : #0077CC;
+	}
+	.chs_combobox:disabled
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+	}
+	.chs_combobox:enabled
+	{
+		background-color : rgba(0,0,0,0);
+		color : black;
+	}
+	.chs_combobox:focus
+	{
+		box-shadow : 5px 5px 5px rgba(0,0,0,0.4);
+	}
+	.chs_combobox:hover
+	{
+		border-color : #00ffff;
+	}
+	#caption
+	{
+		position : fixed;
+		left : 0px;
+		top : 0px;
+		width : 100%;
+		height : 60px;
+		z-index : 2;
+	}
+	.chs_btn
+	{
+		position : absolute;
+		border-width : 0px;
+		background-color : #0077CC;
+		height : 30px;
+		color : white;
+		box-shadow : 5px 5px 5px rgba(0,0,0,0.4);
+	}
+	.chs_btn:hover
+	{
+		opacity : 0.5;
+	}
+	.chs_edit
+	{
+		position : absolute;
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+		height : 30px;
+		font-size : 20px;
+	}
+	.chs_edit:disabled
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+	}
+	.chs_edit:enabled
+	{
+		background-color : rgba(0,0,0,0);
+		color : black;
+	}
+	.chs_edit:focus
+	{
+		box-shadow : 5px 5px 5px rgba(0,0,0,0.4);
+	}
+	.chs_edit:hover
+	{
+		border-color : #00ffff;
+	}
+	.chs_panel
+	{
+		position : absolute;
+		border-style : solid;
+		border-width : 2px;
+		border-radius: 20px;
+		border-color : #0077CC;
+		background-color : rgba(0,0,0,0);
+	}
+	.chs_tabcontrolbar
+	{
+		position : absolute;
+		width : 100%;
+		height : 30px;
+		background-color : rgba(0,0,0,0);
+		border-color : rgba(0,0,0,0);
+		border-style : solid;
+		border-width : 2px;
+		border-radius: 20px;
+	}
+	.chs_tabcontrolbtn
+	{
+		position : absolute;
+		height : 100%;
+		border-width : 0px;
+		background-color : rgba(255,255,255,0.4);
+		color : #0077CC;
+		width : 120px;
+		outline:none;
+		border-style : solid;
+		border-color : #0077CC;
+	}
+	.chs_tabpanel
+	{
+		position : absolute;
+		background-color : white;
+	}
+	.chs_tabcontrolbtn:hover
+	{
+		outline:solid;
+		color : #00ffff;
+	}
+	.chs_tabpage
+	{
+		position : absolute;
+		background-color : rgba(0,0,0,0);
+		visibility : hidden;
+	}
+	#main_panel
+	{
+		left : 10px;
+		top : 100px;
+		width : 640px;
+		height : 640px;
+	}
+	#tb_add
+	{
+		left : 0px;
+	}
+	#tb_remove
+	{
+		left : 125px;
+	}
+	#main_tabpanel
+	{
+		top : 28px;
+		left : 5px;
+		width : 630px;
+		height : 600px;
+	}
+	#group_name_label
+	{
+		left : 10px;
+		top : 20px;
+	}
+	#group_name_edit
+	{
+		left : 10px;
+		top : 50px;
+		width : 320px;
+	}
+	#access_type_label
+	{
+		left : 340px;
+		top : 20px;
+	}
+	#access_type_sel
+	{
+		left : 340px;
+		top : 50px;
+		width : 160px;
+	}
+	#add_group_btn
+	{
+		left : 10px;
+		top : 150px;
+		width : 320px;
+	}
+	#add_group_errmsg_display
+	{
+		left : 10px;
+		top : 100px;
+	}
+	#group_name_sel_label
+	{
+		left : 10px;
+		top : 20px;
+	}
+	#group_name_sel
+	{
+		left : 10px;
+		top : 50px;
+		width : 320px;
+	}
+	#remove_group_btn
+	{
+		left : 10px;
+		top : 150px;
+		width : 320px;
+	}
+</style>
+</head>
+<body onload="InitPage()">
+<div class="client_area">
+	<div class="chs_title" id="caption">Add/Remove group<hr></div>
+	<div class="chs_panel" id="main_panel">
+		<div class="chs_tabcontrolbar">
+			<button class="chs_tabcontrolbtn" onclick="SwitchTabPage(0)" id="tb_add">Add</button>
+			<button class="chs_tabcontrolbtn" onclick="SwitchTabPage(1)" id="tb_remove">Remove</button>
+		</div>
+		<div class="chs_tabpanel" id="main_tabpanel">
+			<div class="chs_tabpage" id="tp_add">
+				<form id="add_group_form" action="/group_page/alter_group/add" method="POST"></form>
+				<label for="group_name_edit" id="group_name_label">New group name</label>
+				<input class="chs_edit" id="group_name_edit" type="text" name="group_name" form="add_group_form" maxlength="256" placeholder="Enter name" required>
+				<label for="access_type_sel" id="access_type_label">Access type</label>
+				<select class="chs_combobox" id="access_type_sel" form="add_group_form" name="group_access_type"></select>
+				<div class="chs_errindicator" id="add_group_errmsg_display"></div>
+				<button class="chs_btn" id="add_group_btn" onclick="AddGroupProc()">Add group</button>
+			</div>
+			<div class="chs_tabpage" id="tp_remove">
+				<form id="remove_group_form" action="/group_page/alter_group/remove" method="POST"></form>
+				<label for="group_name_sel" id="group_name_sel_label">Group name</label>
+				<select class="chs_combobox" id="group_name_sel" form="remove_group_form" name="group_name"></select>
+				<button class="chs_btn" id="remove_group_btn" onclick="RemoveGroupProc()">Remove group</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var tab_page = 	["tp_add" ,"tp_remove"];
+	var tab_btn = 	["tb_add"	,"tb_remove"];
+	var cur_page = 0;
+	var group_table_changed_time = null;
+	var already_alter = false;
+	function HttpGetAsync(theUrl, callback)
+	{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send();
+	}
+	function SwitchTabPage(page_index)
+	{
+		document.getElementById(tab_page[cur_page]).style.visibility = "hidden";
+		document.getElementById(tab_btn[cur_page]).style.borderWidth = "0px";
+		cur_page = page_index;
+		document.getElementById(tab_page[cur_page]).style.visibility = "visible";
+		document.getElementById(tab_btn[cur_page]).style.borderWidth = "2px";
+	}
+	function GetLastErrorFromServer()
+	{
+		HttpGetAsync('/group_page/get_alter_group_error' ,function(res){
+			if(res)
+			{
+				var err_obj = JSON.parse(res);
+				if(err_obj.errmsg)
+				{
+					switch(err_obj.alter_page)
+					{
+						case 0: //add page
+							document.getElementById("group_name_edit").value = err_obj.group_name_remain;
+							document.getElementById("access_type_sel").selectedIndex = err_obj.access_type_remain;
+							document.getElementById("add_group_errmsg_display").innerHTML = err_obj.errmsg;
+							break;
+						case 1: //remove page
+							break;
+					}
+					SwitchTabPage(err_obj.alter_page);
+				}
+			}
+		});
+	}
+	function ChkGroupTableIsChanged()
+	{
+		HttpGetAsync('/group_page/enum_group_name/alter' ,function(res){
+			if(res)
+			{
+				var ret_obj = JSON.parse(res);
+				if(ret_obj.errcode == 0 && ret_obj.changed_time != group_table_changed_time && !already_alter)	//CH_ERROR_SUCCESS
+				{
+					already_alter = true;
+					alert("Group is changed need update");
+					location.reload();
+				}
+			}
+		});
+	}
+	function InitPage()
+	{
+		HttpGetAsync('/group_page/get_access_type' ,function(res){
+			if(res)
+			{
+				var ret_obj = JSON.parse(res);
+				if(ret_obj.errcode == 0)	//CH_ERROR_SUCCESS
+				{
+					var at_sel_box = document.getElementById("access_type_sel");
+					for(var index = 0 ;index < ret_obj.access_type.length ;index++)
+					{
+						var option = document.createElement("option");
+						option.text = ret_obj.access_type[index];
+						at_sel_box.add(option);
+					}
+				}
+			}
+		});
+		HttpGetAsync('/group_page/enum_group_name/alter' ,function(res){
+			if(res)
+			{
+				var ret_obj = JSON.parse(res);
+				if(ret_obj.errcode == 0)	//CH_ERROR_SUCCESS
+				{
+					group_table_changed_time = ret_obj.changed_time;
+					var gn_sel_box = document.getElementById("group_name_sel");
+					for(var index = 0 ;index < ret_obj.group_names.length ;index++)
+					{
+						var option = document.createElement("option");
+						option.text = ret_obj.group_names[index];
+						gn_sel_box.add(option);
+					}
+				}
+			}
+		});
+		SwitchTabPage(cur_page);
+		GetLastErrorFromServer();
+		setInterval(ChkGroupTableIsChanged,1000);
+	}
+	function AddGroupProc()
+	{
+		var form = document.getElementById("add_group_form");
+		if(form.elements.namedItem("group_name").value)
+		{
+			var sel_index = form.elements.namedItem("group_access_type").selectedIndex;
+			var option = document.createElement("option");
+			option.text = sel_index;
+			form.elements.namedItem("group_access_type").add(option);
+			form.elements.namedItem("group_access_type").value = option.text;
+			form.submit();
+		}
+	}
+	function RemoveGroupProc()
+	{
+		var form = document.getElementById("remove_group_form");
+		form.submit();
+	}
+</script>
+</body>
+</html>

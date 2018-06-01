@@ -1,0 +1,27 @@
+var express = require('express');
+var router = express.Router();
+
+/* GET home page. */
+router.get('/:name', function(req, res, next) {
+ 	if(req.params.name == "default_bg")
+  {
+  	//console.log("give default bg");
+  	res.sendFile(path.join(__dirname, '../public/images', 'map.jpg'));
+  }
+  else if(req.params.name == "default_icon")
+  {
+  	res.sendFile(path.join(__dirname, '../public/images', 'icon.png'));
+	}
+	else if(req.params.name == "user_icon")
+	{
+		res.sendFile(path.join(__dirname, '../public/images', 'user.jpg'));
+	}
+	else if(req.params.name == "pen_icon")
+	{
+		res.sendFile(path.join(__dirname, '../public/images', 'pen.jpg'));
+	}
+  else
+  	console.log("no have this resource");
+});
+
+module.exports = router;

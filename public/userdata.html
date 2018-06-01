@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Userdata</title>
+<style>
+	body
+	{
+		font-family : Microsoft JhengHei;
+		background-color : white;
+	}
+	hr
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	label
+	{
+		font-size : 20px;
+	}
+	.chs_title
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+		font-size : 40px;
+		
+	}
+	.client_area
+	{
+		position : fixed;
+		z-index: 1;
+		left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
+    background-color : rgba(0,0,0,0);
+	}
+	#caption
+	{
+		position : fixed;
+		left : 0px;
+		top : 0px;
+		width : 100%;
+		height : 60px;
+		z-index : 2;
+	}
+	.panel
+	{
+		position : absolute;
+		left : 5px;
+		top : 90px;
+		width : 800px;
+		height : 640px;
+		background-color : rgba(0,0,0,0);
+		border-style : solid;
+		border-width : 2px;
+		border-radius: 20px;
+		border-color : #0077CC;
+	}
+	.sysbtn
+	{
+		background-color: rgba(0,0,0,0);
+		border: none;
+	}
+	.sysbtn:hover
+	{
+		background-color: rgba(0,0,0,0.4);
+	}
+	#userdata_form
+	{
+		position : absolute;
+		left : 0px;
+		top : 0px;
+		width : 700px;
+		height : 540px;
+		background-color : rgba(0,0,0,0);
+	}
+	.chs_edit
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+		height : 30px;
+		font-size : 20px;
+	}
+	.chs_edit:disabled
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+	}
+	.chs_edit:enabled
+	{
+		background-color : rgba(0,0,0,0);
+		color : black;
+	}
+	#real_name_edit
+	{
+		position : absolute;
+		left : 10px;
+		top : 40px;
+		width : 320px;
+	}
+	#real_name_label
+	{
+		position : absolute;
+		left : 10px;
+		top : 10px;
+		height : 30px;
+	}
+	#gender_label
+	{
+		position : absolute;
+		left : 340px;
+		top : 10px;
+		height : 30px;
+	}
+	#gender_indicator
+	{
+		position : absolute;
+		left : 340px;
+		top : 40px;
+		height : 30px;
+	}
+	#male_sel
+	{
+		position : absolute;
+		left : 340px;
+		top : 40px;
+		height : 30px;
+		visibility : hidden;
+	}
+	#male_label
+	{
+		position : absolute;
+		left : 360px;
+		top : 40px;
+		height : 30px;
+		color : blue;
+		visibility : hidden;
+	}
+	#female_sel
+	{
+		position : absolute;
+		left : 410px;
+		top : 40px;
+		height : 30px;
+		visibility : hidden;
+	}
+	#female_label
+	{
+		position : absolute;
+		left : 430px;
+		top : 40px;
+		height : 30px;
+		color : red;
+		visibility : hidden;
+	}
+	#phone_num_label
+	{
+		position : absolute;
+		left : 10px;
+		top : 80px;
+		height : 30px;
+	}
+	#phone_num_edit
+	{
+		position : absolute;
+		left : 10px;
+		top : 110px;
+		height : 30px;
+		width : 320px;
+	}
+	#status_label
+	{
+		position : absolute;
+		left : 340px;
+		top : 80px;
+		height : 30px;
+	}
+	#status_edit
+	{
+		position : absolute;
+		left : 340px;
+		top : 110px;
+		height : 30px;
+		width : 320px;
+	}
+	
+	#email_addr_label
+	{
+		position : absolute;
+		left : 10px;
+		top : 150px;
+		height : 30px;
+	}
+	#email_addr_edit
+	{
+		position : absolute;
+		left : 10px;
+		top : 180px;
+		width : 650px;
+		height : 30px;
+	}
+	#alter_btn
+	{
+		position : absolute;
+		left : 730px;
+		top : 40px;
+		width : 30px;
+		height : 30px;
+		background-image : url('/img/pen_icon');
+		background-size : cover;
+		border-width : 0px;
+		border-color : #0077CC;
+		border-style : solid;
+		outline: none;
+	}
+	#alter_btn:hover
+	{
+		opacity : 0.5;
+	}
+	#submit_btn
+	{
+		position : absolute;
+		left : 10px;
+		top : 230px;
+		width : 200px;
+		height : 30px;
+		color : white;
+		background-color : #0077CC;
+		border-width : 0px;
+		box-shadow : 5px 5px 5px rgba(0,0,0,0.4);
+	}
+	#submit_btn:hover
+	{
+		opacity : 0.5;
+	}
+	#modified_time_tag
+	{
+		position : absolute;
+		left : 10px;
+		top : 600px;
+		color : #0077CC;
+		width : 100%;
+		height : 30px;
+		font-size : 20px;
+	}
+</style>
+</head>
+<body onload="InitPage()">
+<div class="client_area">
+	<div class="chs_title" id="caption">Userdata<hr></div>
+	<div class="panel">
+		<button id="alter_btn" onclick="AlterBtnOnClicked()">&nbsp</button>
+		<form id="userdata_form"  method="POST">
+			<label for="real_name_edit" id="real_name_label">Real name</label>
+			<input class="chs_edit" id="real_name_edit" type="text" name="real_name" form="userdata_form" maxlength="256" required>
+			<label id="gender_label">Gender</label><label id="gender_indicator"></label>
+			<input id="male_sel" type="radio" name="gender" value="M" form="userdata_form" checked> <label for="male_sel" id="male_label">Male</label>
+  		<input id="female_sel" type="radio" name="gender" value="F" form="userdata_form"> <label for="female_sel" id="female_label">Female</label>
+			<label for="status_edit" id="status_label">Status</label>
+			<input class="chs_edit" id="status_edit" type="text" name="status" form="userdata_form" maxlength="256" placeholder="No data">
+			<label for="phone_num_edit" id="phone_num_label">Phone number</label>
+			<input class="chs_edit" id="phone_num_edit" type="text" name="phone_num" form="userdata_form" maxlength="256" placeholder="No data">
+			<label for="email_addr_edit" id="email_addr_label">Email</label>
+			<input class="chs_edit" id="email_addr_edit" type="text" name="email" form="userdata_form" maxlength="256" placeholder="No data">
+			<button id="submit_btn"  onclick="SubmitHandler()">Modify data</button>
+		</form>
+		<div id="modified_time_tag"></div>
+	</div>
+</div>
+<script>
+	var ud_last_modified_time = null;
+	var user_data = null;
+	function HttpGetAsync(theUrl, callback)
+	{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send();
+	}
+	function GetUserData(res)
+	{
+		if(res)
+		{
+			var ud_obj = JSON.parse(res);
+			if(ud_obj.last_modified_time)
+			{
+				user_data = ud_obj;
+				ud_last_modified_time = ud_obj.last_modified_time;
+				document.getElementById('modified_time_tag').innerHTML = "Last modified time : " + ud_obj.last_modified_time;
+				if(ud_obj.real_name)
+					document.getElementById('real_name_edit').value = ud_obj.real_name;
+				if(ud_obj.phone_number)
+					document.getElementById('phone_num_edit').value = ud_obj.phone_number;
+				if(ud_obj.email)
+					document.getElementById('email_addr_edit').value = ud_obj.email;
+				if(ud_obj.status)
+					document.getElementById('status_edit').value = ud_obj.status;
+				if(ud_obj.gender === 'M')
+				{
+					document.getElementById('gender_indicator').innerHTML = "Male";
+					document.getElementById('gender_indicator').style.color = "blue";
+					document.getElementById('male_sel').checked = true;
+				}
+				else if(ud_obj.gender == 'F')
+				{
+					document.getElementById('gender_indicator').innerHTML = "Female";
+					document.getElementById('gender_indicator').style.color = "red";
+					document.getElementById('female_sel').checked = true;
+				}
+			}
+		}
+	}
+	function DisableAllEdit()
+	{
+		document.getElementById('real_name_edit').disabled = true;
+		document.getElementById('phone_num_edit').disabled = true;
+		document.getElementById('email_addr_edit').disabled = true;
+		document.getElementById('status_edit').disabled = true;
+		document.getElementById('submit_btn').style.visibility = "hidden";
+		document.getElementById('male_sel').style.visibility = "hidden";
+		document.getElementById('female_sel').style.visibility = "hidden";
+		document.getElementById('male_label').style.visibility = "hidden";
+		document.getElementById('female_label').style.visibility = "hidden";
+		document.getElementById('gender_indicator').style.visibility = "visible";
+	}
+	function EnableAllEdit()
+	{
+		document.getElementById('real_name_edit').disabled = false;
+		document.getElementById('phone_num_edit').disabled = false;
+		document.getElementById('email_addr_edit').disabled = false;
+		document.getElementById('status_edit').disabled = false;
+		document.getElementById('submit_btn').style.visibility = "visible";
+		document.getElementById('male_sel').style.visibility = "visible";
+		document.getElementById('female_sel').style.visibility = "visible";
+		document.getElementById('male_label').style.visibility = "visible";
+		document.getElementById('female_label').style.visibility = "visible";
+		document.getElementById('gender_indicator').style.visibility = "hidden";
+	}
+	function InitPage()
+	{
+		DisableAllEdit();
+		HttpGetAsync('/user_page/get_userdata',GetUserData);
+		setInterval(function(){
+									if(document.getElementById('real_name_edit').disabled)
+										HttpGetAsync('/user_page/get_userdata' + ((ud_last_modified_time) ? ("/" + ud_last_modified_time) : ("")),GetUserData);
+							},1000);
+	}
+	function AlterBtnOnClicked()
+	{
+		if(document.getElementById('real_name_edit').disabled)
+		{
+			EnableAllEdit();
+			document.getElementById('alter_btn').style.borderWidth = "2px";
+		}
+		else
+		{
+			DisableAllEdit();
+			document.getElementById('alter_btn').style.borderWidth = "0px";
+		}
+	}
+	function SubmitHandler()
+	{
+		var submit_param = [];
+		var form = document.getElementById('userdata_form');
+		if(form.elements.namedItem("real_name").value != user_data.real_name)
+			submit_param.push("real_name");
+		if(form.elements.namedItem("gender").value != user_data.gender)
+			submit_param.push("gender");
+		if(form.elements.namedItem("status").value != user_data.status)
+			submit_param.push("status");
+		if(form.elements.namedItem("phone_num").value != user_data.phone_number)
+			submit_param.push("phone_num");
+		if(form.elements.namedItem("email").value != user_data.email)
+			submit_param.push("email");
+		var target_url = "/user_page/set_userdata/";
+		if(submit_param.length == 0)
+			return;
+		for(var index = 0;index < submit_param.length ;index++)
+		{
+			target_url += submit_param[index];
+			if(index < submit_param.length - 1)
+				target_url += "|";
+		}
+		form.action = target_url;
+		form.submit();
+	}
+</script>
+</body>
+</html>

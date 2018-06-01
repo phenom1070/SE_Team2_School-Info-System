@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<style>
+	body
+	{
+		font-family : Microsoft JhengHei;
+		background-color : white;
+	}
+	hr
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	.chs_title
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+		font-size : 40px;
+		z-index : 2;
+	}
+	.client_area
+	{
+		position : fixed;
+		z-index: 1;
+		left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
+    background-color : rgba(0,0,0,0);
+	}
+	#caption
+	{
+		position : fixed;
+		left : 0px;
+		top : 0px;
+		width : 100%;
+		height : 60px;
+	}
+	#label_area
+	{
+		position : absolute;
+		font-family : Lucida Console;
+		left : 0px;
+		top : 80px;
+		width : 100%;
+		height : 100%;
+		color : white;
+		background : blue;
+		font-size : 20px;
+	}
+</style>
+</head>
+<body onload="InitPage()">
+<div class="client_area">
+	<div class="chs_title" id="caption">Invalid path<hr></div>
+	<div id="label_area">
+	</div>
+</div>
+
+<script>
+	function HttpGetAsync(theUrl, callback)
+	{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send();
+	}
+	function GetErrorInfoFromServer(res)
+	{
+		if(res)
+		{
+			err_obj = JSON.parse(res);
+			if(err_obj)
+			{
+				document.getElementById('caption').innerHTML = err_obj.msg + "<hr>";
+				document.title = err_obj.msg;
+				document.getElementById('label_area').innerHTML = err_obj.detail_info;
+			}
+		}
+	}
+	function InitPage()
+	{
+		HttpGetAsync('/get_errinfo' ,GetErrorInfoFromServer);
+	}
+</script>
+</body>
+</html>

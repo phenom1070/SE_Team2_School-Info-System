@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/img/default_icon" />
+<title>NKUST administrator</title>
+<style>
+	body
+	{
+		font-family:Microsoft JhengHei;
+		background-image:url("/img/default_bg");
+		background-size:cover;
+		overflow: hidden;
+	}
+	p
+	{
+		margin-top : 0;
+		margin-bottom : 0;
+	}
+	.client_area 
+	{
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* disable scroll */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+	#user_btn
+	{
+		position: fixed;
+		right: 100px;
+		height:50px;
+		width:120px;
+		top:5px;
+		font-size:22px;
+		font-weight:bold;
+		color:#0077cc;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	#user_btn_img
+	{
+		position: absolute;
+		left : 5px;
+		height: 40px;
+		width : 40px;
+		top : 5px;
+		background-image : url("/img/user_icon");
+		background-size : cover;
+		
+	}
+	#user_btn_name
+	{
+		position : absolute;
+		left : 50px;
+		top : 5px;
+		height : 40px;
+		margin-top : 0px;
+		margin-bottom : 0px; 
+		text-overflow: ellipsis;
+		line-height: 40px;
+	}
+	#logoff_btn
+	{
+		position: fixed;
+		right:20px;
+		height:50px;
+		width:70px;
+		top:5px;
+	}
+	.sysbtn
+	{
+		background-color: rgba(0,0,0,0);
+		border: none;
+	}
+	.sysbtn:hover
+	{
+		background-color: rgba(0,0,0,0.4);
+	}
+	.chs_caption
+	{
+		position: fixed;
+		margin-left: 0px;
+    margin-top: 0px;
+    top:0;
+    left:0;
+    height:60px;
+    background-color:white;
+    width:100%;
+    color:black;
+    z-index : 2;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    font-weight:bold;
+	}
+	.chs_userpanel_shadow
+	{
+		position: absolute;
+		z-index:10;
+		box-shadow:30px 30px 30px rgba(0,0,0,0.5);
+		background-color:white;
+	}
+	#userdata_popup
+	{
+		top:60px;
+		right:20px;
+		width:250px;
+		height:150px;
+		visibility:hidden;
+	}
+	.chs_shadow_title
+	{
+		font-size:28px;
+		font-weight:bold;
+		color:#0077cc;
+		margin-top:0;
+		margin-bottom:0;
+	}
+	#caption_icon
+	{
+		position:absolute;
+		width:40px;
+		height:30px;
+		top:15px;
+		left:20px;
+		background-image:url("/img/default_icon");
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	#caption_title
+	{
+		position : absolute;
+		height : 40px;
+		width : 256px;
+		top: 10px;
+		left : 70px;
+		margin-top:0;
+		margin-bottom:0;
+		line-height: 40px;
+	}
+	#udp_pp_icon
+	{
+		position:absolute;
+		width:60px;
+		height:60px;
+		top:10px;
+		left:10px;
+		background-image:url("/img/user_icon");
+		background-size: cover;
+	}
+	#udp_pp_title
+	{
+		position:absolute;
+		height :40px;
+		width : 100px;
+		top:10px;
+		left: 100px;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	#udp_pp_description
+	{
+		position:absolute;
+		top:	80px;
+		left: 90px;
+		white-space: nowrap;
+	}
+	#udp_pp_user_id_label
+	{
+		position:absolute;
+		top:		60px;
+		left: 90px;
+		white-space: nowrap;
+	}
+	#udp_pp_btn_container
+	{
+		position : absolute;
+		height : 40px;
+		width : 100%;
+		left : 0;
+		top : 110px;
+		background-color : #bbbbbb;
+		
+	}
+	.udp_pp_btn
+	{
+		position : absolute;
+		height : 30px;
+		width : 80px;
+		top : 5px;
+		left : 10px;
+		border: 2px solid rgba(0,0,0,0.24);
+		box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+	}
+	#udp_pp_logoff_btn
+	{
+		position : absolute;
+		height : 30px;
+		width : 80px;
+		top : 5px;
+		left : 10px;
+	}
+	#udp_pp_close_btn
+	{
+		position : absolute;
+		height : 30px;
+		width : 80px;
+		top : 5px;
+		left : 100px;
+	}
+	.side_panel
+	{
+		position : absolute;
+		height : 100%;
+		width : 256px;
+		background-color : white;
+		top : 60px;
+		left : 0px;
+	}
+	#sp_menu
+	{
+		position : absolute;
+		overflow : auto;
+		width : 100%;
+		top : 0px;
+		left : 0px;
+	}
+	#sp_admin_panel
+	{
+		position : absolute;
+		height : 320px;
+		left : 10px;
+		top : 50px;
+		width : 236px;
+	}
+	#sp_user_panel
+	{
+		position : absolute;
+		height : 320px;
+		left : 10px;
+		top : 380px;
+		width : 236px;
+	}
+	.sp_hr
+	{
+		border-style: solid;
+    border-color: #0077CC;
+    margin-bottom : 0;
+	}
+	#sp_admin_title
+	{
+		position : absolute;
+		height : 40px;
+		width : 100%;
+		left : 0;
+		top: 0;
+	}
+	#sp_user_title
+	{
+		position : absolute;
+		height : 40px;
+		width : 100%;
+		left : 0;
+		top : 0;
+	}
+	.sp_btn
+	{
+		text-align : left;
+		font-weight : bold;
+		color : #505050;
+	}
+	#sp_admin_broadcast_btn
+	{
+		position : absolute;
+		height : 30px;
+		width : 100%;
+		left : 0;
+		top: 45px;
+	}
+	#sp_admin_groupdata_btn
+	{
+		position : absolute;
+		height : 30px;
+		width : 100%;
+		left : 0;
+		top: 85px;
+	}
+	#sp_admin_groupmembers_btn
+	{
+		position : absolute;
+		height : 30px;
+		width : 100%;
+		left : 0;
+		top : 125px;
+	}
+	
+	/*only root can use*/
+	#sp_admin_reg_btn
+	{
+		position : absolute;
+		height : 30px;
+		width : 100%;
+		left : 0;
+		top : 165px;
+	}
+	#sp_admin_altergroup_btn
+	{
+		position : absolute;
+		height : 30px;
+		width : 100%;
+		left : 0;
+		top : 205px;
+	}
+	
+	#sp_user_userdata_btn
+	{
+		position : absolute;
+		left : 0px;
+		top : 45px;
+		width : 100%;
+		height : 30px;
+	}
+	#sp_close_client_view_btn
+	{
+		position : absolute;
+		height : 60px;
+		width : 236px;
+		left : 10px;
+		border-width : 2px;
+		border-color : #0077CC;
+		font-weight : bold;
+		background-color : rgba(0,0,0,0);
+		border-style :solid;
+		font-size : 20px;
+		color : #0077CC;
+	}
+	#sp_close_client_view_btn:hover
+	{
+		border-color : #00ffff;
+		background-color: rgba(0,0,0,0.4);
+		box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+	}
+	#client_view
+	{
+		position : absolute;
+		top : 0px;
+		left : 0px;
+		height : 100%;
+		width : 100%;
+		background-color : rgba(0,0,0,0);
+		border-width : 0px;
+	}
+	#cv_main
+	{
+		position : absolute;
+		background-color : white;
+		left : 276px;
+		top : 80px;
+		visibility : hidden;
+		box-shadow:10px 10px 10px rgba(0,0,0,0.5);
+		border-width : 0px;
+	}
+	#logoff_form
+	{
+		visibility : hidden;
+	}
+	/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+	#ch_tooltip
+	{
+		position : fixed;
+		z-index : 50;
+		visibility : hidden;
+		height : 28px;
+		font-size : 20px;
+		background-color :  #0077CC;
+		color : white;
+		border-color : black;
+		border-width : 5px;
+		box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+		white-space: nowrap;
+	}
+</style>
+</head>
+<body onload="InitAdminPage()" onresize="ClientAreaResizeHandler()" >
+
+<div id="ca_main" class="client_area animate">
+	<div id="ch_tooltip"></div>
+	<div id="cp_main" class="chs_caption">
+		<div id="caption_icon">&nbsp</div>
+		<p id="caption_title">NKUST administrator</p>
+		<button class="sysbtn" id="user_btn" onclick="UserBtnClickedHandler()" onmouseover="ShowRealNameInToolTip('user_btn')" onmouseleave="HideToolTip()">
+			<div id="user_btn_img">&nbsp</div>
+			<div  id="user_btn_name"></div>
+		</button>
+		<form id="logoff_form" action="/login_proc/logoff" target="_self">
+		</form>
+  	<button class="sysbtn" id="logoff_btn" onclick="LogoffProc()">Logoff</button>
+	</div>
+	<div id="sp_main" class="side_panel">
+		<div id="sp_menu">
+			<div id="sp_admin_panel">
+				<div id="sp_admin_title">Admin<hr class="sp_hr"></div>
+				<button class="sysbtn  sp_btn" id="sp_admin_broadcast_btn" onclick="ChangeClientPage(1)">Broadcast</button>
+				<button class="sysbtn  sp_btn" id="sp_admin_groupdata_btn" onclick="ChangeClientPage(2)">Group info</button>
+				<button class="sysbtn  sp_btn" id="sp_admin_groupmembers_btn" onclick="ChangeClientPage(5)">Group Members</button>
+				<button class="sysbtn  sp_btn" id="sp_admin_reg_btn" onclick="ChangeClientPage(0)">Register admin</button>
+				<button class="sysbtn  sp_btn" id="sp_admin_altergroup_btn" onclick="ChangeClientPage(4)">Add/Remove group</button>
+			</div>
+			<div id="sp_user_panel">
+				<div id="sp_user_title">User<hr class="sp_hr"></div>
+				<button class="sysbtn sp_btn" id="sp_user_userdata_btn" onclick="ChangeClientPage(3)">Userdata</button>
+			</div>
+		</div>
+		<button id="sp_close_client_view_btn" onclick="CloseClientView()">Close client view</button>
+	</div>
+	<div id="cv_main">
+		<iframe id="client_view"  scrolling="auto" src="">&nbsp</iframe>
+	</div>
+</div>
+
+<div class="chs_userpanel_shadow" id="userdata_popup">
+	<div id="udp_pp_icon">
+		&nbsp
+	</div>
+	<p class="chs_shadow_title" id="udp_pp_title"></p>
+	<p id="udp_pp_description"></p>
+	<p id="udp_pp_user_id_label"></p>
+	<div id = "udp_pp_btn_container">
+  	<button class="sysbtn udp_pp_btn" id="udp_pp_logoff_btn" onclick="LogoffProc()">Logoff</button>
+		<button class="sysbtn udp_pp_btn" id="udp_pp_close_btn" onclick="CloseUserdataPanel()">Close</button>
+	</div>
+</div>
+
+<script>
+	var cursor_pos_x = null;
+	var cursor_pos_y = null;
+    
+	document.addEventListener('mousemove', onMouseUpdate, false);
+	document.addEventListener('mouseenter', onMouseUpdate, false);
+    
+	function onMouseUpdate(e) {
+  	cursor_pos_x = e.pageX;
+  	cursor_pos_y = e.pageY;
+	}
+	var page_index_table = ["/admin_page/register_admin","/admin_page/broadcast","/group_page","/user_page","/group_page/alter_group","/group_page/get_members_page"];
+	var user_data = {user_type : null ,user_id : null ,real_name : null ,group_name : null ,info_modified_time_stamp : null ,data_modified_time : null};
+	function HttpGetAsync(theUrl, callback)
+	{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send();
+	}
+	function GetUserInfo(userdata)
+	{
+		var userdata_obj = JSON.parse(userdata);
+		if(userdata_obj.info_modified_time_stamp !=  user_data.info_modified_time_stamp || !user_data.user_id ||
+		user_data.real_name != userdata_obj.real_name)
+		{
+			user_data.user_type = userdata_obj.user_type;
+			user_data.user_id = userdata_obj.user_id;
+			user_data.real_name = userdata_obj.real_name;
+			user_data.group_name = userdata_obj.group_name;
+			user_data.info_modified_time_stamp = userdata_obj.info_modified_time_stamp;
+			user_data.data_modified_time = userdata_obj.data_modified_time;
+			document.getElementById("user_btn_name").innerHTML = (user_data.real_name); 
+			document.getElementById("udp_pp_title").innerHTML = (user_data.real_name);
+			document.getElementById("udp_pp_user_id_label").innerHTML = 'UserID: '+ user_data.user_id;
+			document.getElementById("udp_pp_description").innerHTML = 'Group: '+ user_data.group_name;
+			if(user_data.group_name != 'root' || user_data.user_id != 'root')
+			{
+				//console.log('admin_btn hide');
+				document.getElementById('sp_admin_reg_btn').style.visibility = 'hidden';
+				document.getElementById('sp_admin_altergroup_btn').style.visibility = 'hidden';
+			}
+		}
+		
+	}
+	function UserBtnClickedHandler()
+	{
+		document.getElementById("userdata_popup").style.visibility = "visible";
+		//document.getElementById("userdata_popup").focus();
+	}
+	function InitAdminPage()
+	{
+		ClientAreaResizeHandler();
+		HttpGetAsync("/user_page/get_userinfo/user_type|user_id|real_name|group_name|info_modified_time_stamp|data_modified_time",GetUserInfo);
+		setInterval(function(){  
+										HttpGetAsync('/user_page/get_userinfo/user_type|user_id|real_name|group_name|info_modified_time_stamp|data_modified_time',GetUserInfo);
+									//console.log("Timer alter");
+								} ,
+								1000);
+	}
+	function CloseUserdataPanel()
+	{
+		document.getElementById("userdata_popup").style.visibility = "hidden";
+	}
+	function ChangeClientPage(page_index)
+	{
+		if(page_index < page_index_table.length)
+		{
+			document.getElementById('cv_main').style.visibility = "visible";
+			document.getElementById('client_view').src = page_index_table[page_index];
+		}
+	}
+	function CloseClientView()
+	{
+		document.getElementById('cv_main').style.visibility = "hidden";
+		document.getElementById('client_view').src = "";
+	}
+	function ClientAreaResizeHandler()
+	{
+		var ca_width = document.getElementById('ca_main').offsetWidth;
+		var ca_height = document.getElementById('ca_main').offsetHeight;
+		var sp_width = document.getElementById('sp_main').offsetWidth;
+		var sp_height = document.getElementById('sp_main').offsetHeight;
+		var cp_height = document.getElementById('cp_main').offsetHeight;
+		/*console.log("ca_width = " + ca_width);
+		console.log("ca_height = " + ca_height);
+		console.log("sp_width = " + sp_width);*/
+		document.getElementById('cv_main').style.width = (ca_width - (sp_width + 40)) + "px"; 
+		document.getElementById('cv_main').style.height = (ca_height - (cp_height + 40)) + "px";
+		document.getElementById('sp_close_client_view_btn').style.top = (ca_height - 80 - cp_height) + "px"; 
+		document.getElementById('sp_menu').style.height = (sp_height - 200) + "px";
+	}
+	function LogoffProc()
+	{
+		document.getElementById("logoff_form").submit();
+	}
+	function ShowRealNameInToolTip(element_id)
+	{
+		var top = cursor_pos_y + 20;
+		var left = cursor_pos_x + 5;
+		document.getElementById('ch_tooltip').innerHTML = user_data.real_name;
+		document.getElementById('ch_tooltip').style.top = top + 'px';
+		document.getElementById('ch_tooltip').style.left = left + 'px';
+		document.getElementById('ch_tooltip').style.visibility = "visible";
+	}
+	function HideToolTip()
+	{
+		document.getElementById('ch_tooltip').style.visibility = "hidden";
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Group info</title>
+<style>
+	body
+	{
+		font-family : Microsoft JhengHei;
+		background-color : white;
+	}
+	hr
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	label
+	{
+		font-size : 20px;
+	}
+	.chs_title
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+		font-size : 40px;
+		z-index : 2;
+	}
+	.client_area
+	{
+		position : fixed;
+		z-index: 1;
+		left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
+    background-color : rgba(0,0,0,0);
+	}
+	#caption
+	{
+		position : fixed;
+		left : 0px;
+		top : 0px;
+		width : 100%;
+		height : 60px;
+	}
+	.panel
+	{
+		position : absolute;
+		left : 5px;
+		top : 90px;
+		width : 800px;
+		height : 640px;
+		background-color : rgba(0,0,0,0);
+		border-style : solid;
+		border-width : 2px;
+		border-radius: 20px;
+		border-color : #0077CC;
+	}
+	.sysbtn
+	{
+		background-color: rgba(0,0,0,0);
+		border: none;
+	}
+	.sysbtn:hover
+	{
+		background-color: rgba(0,0,0,0.4);
+	}
+	#groupdata_form
+	{
+		position : absolute;
+		left : 0px;
+		top : 0px;
+		width : 700px;
+		height : 540px;
+		background-color : rgba(0,0,0,0);
+	}
+	.chs_edit
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+		height : 30px;
+		font-size : 20px;
+	}
+	.chs_edit:disabled
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+	}
+	.chs_edit:enabled
+	{
+		background-color : rgba(0,0,0,0);
+		color : black;
+	}
+	.chs_edit:focus
+	{
+		box-shadow : 5px 5px 5px rgba(0,0,0,0.4);
+	}
+	#gn_display
+	{
+		position : absolute;
+		left : 10px;
+		top : 0px;
+		height : 60px;
+		width : 320px;
+		font-size : 30px;
+		color : #0077CC;
+	}
+	#gs_label
+	{
+		position : absolute;
+		left : 340px;
+		top : 0px;
+		height : 30px;
+	}
+	#gs_edit
+	{
+		position : absolute;
+		left : 340px;
+		top : 30px;
+		width : 320px;
+	}
+	#admin_edit
+	{
+		position : absolute;
+		left : 10px;
+		top : 100px;
+		width : 320px;
+	}
+	#admin_label
+	{
+		position : absolute;
+		left : 10px;
+		top : 70px;
+		height : 30px;
+	}
+	#phone_num_label
+	{
+		position : absolute;
+		left : 340px;
+		top : 70px;
+		height : 30px;
+	}
+	#phone_num_edit
+	{
+		position : absolute;
+		left : 340px;
+		top : 100px;
+		height : 30px;
+		width : 320px;
+	}
+	#email_addr_label
+	{
+		position : absolute;
+		left : 10px;
+		top : 160px;
+		height : 30px;
+	}
+	#email_addr_edit
+	{
+		position : absolute;
+		left : 10px;
+		top : 190px;
+		width : 650px;
+		height : 30px;
+	}
+	#office_label
+	{
+		position :absolute;
+		left : 10px;
+		top : 250px;
+		height : 30px;
+	}
+	#office_edit
+	{
+		position : absolute;
+		left : 10px;
+		top : 280px;
+		width : 320px;
+		height : 30px;
+	}
+	#alter_btn
+	{
+		position : absolute;
+		left : 730px;
+		top : 40px;
+		width : 30px;
+		height : 30px;
+		background-image : url('/img/pen_icon');
+		background-size : cover;
+		border-width : 0px;
+		border-color : #0077CC;
+		border-style : solid;
+		outline: none;
+	}
+	#alter_btn:hover
+	{
+		opacity : 0.5;
+	}
+	#submit_btn
+	{
+		position : absolute;
+		left : 10px;
+		bottom : 20px;
+		width : 200px;
+		height : 30px;
+		color : white;
+		background-color : #0077CC;
+		border-width : 0px;
+		box-shadow : 5px 5px 5px rgba(0,0,0,0.4);
+	}
+	#submit_btn:hover
+	{
+		opacity : 0.5;
+	}
+	.info_static
+	{
+		position : absolute;
+		color : #0077CC;
+		font-size : 20px;
+	}
+	#modifier_static
+	{
+		left : 10px;
+		bottom : 50px;
+		width : 100%;
+		height : 30px;
+	}
+	#modified_time_tag
+	{
+		
+		left : 10px;
+		bottom : 20px;
+		width : 100%;
+		height : 30px;
+	}
+</style>
+</head>
+<body onload="InitPage()">
+<div class="client_area">
+	<div class="chs_title" id="caption">Group info<hr></div>
+	<div class="panel">
+		<button id="alter_btn" onclick="AlterBtnOnClicked()">&nbsp</button>
+		<form id="groupdata_form" action="/group_page/set_groupdata" method="POST">
+			<div id="gn_display"></div>
+			<label for="gs_edit_edit" id="gs_label">Group status</label>
+			<input class="chs_edit" id="gs_edit" type="text" name="group_status" form="groupdata_form" maxlength="256" placeholder="No data">
+			<label for="admin_edit" id="admin_label">Admin(real name)</label>
+			<input class="chs_edit" id="admin_edit" type="text" name="admin_name" form="groupdata_form" maxlength="256" placeholder="No data">
+			
+			
+			<label for="phone_num_edit" id="phone_num_label">Phone number</label>
+			<input class="chs_edit" id="phone_num_edit" type="text" name="phone_num" form="groupdata_form" maxlength="256" placeholder="No data">
+			<label for="email_addr_edit" id="email_addr_label">Email</label>
+			<input class="chs_edit" id="email_addr_edit" type="text" name="email_addr" form="groupdata_form" maxlength="256" placeholder="No data">
+			<label for="office_edit" id="office_label">Office</label>
+			<input class="chs_edit" id="office_edit" type="text" name="office" form="groupdata_form" maxlength="256" placeholder="No data">
+			<button id="submit_btn" type="submit">Modify data</button>
+		</form>
+		<div class="info_static" id="modifier_static"></div>
+		<div class="info_static" id="modified_time_tag"></div>
+	</div>
+</div>
+<script>
+	var gd_last_modified_time = "";
+	var group_name = null;
+	function HttpGetAsync(theUrl, callback)
+	{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send();
+	}
+	function GetUserData(res)
+	{
+		if(res)
+		{
+			var ud_obj = JSON.parse(res);
+			if(ud_obj)
+			{
+				group_name = ud_obj.group_name;
+				document.getElementById('gn_display').innerHTML = group_name;
+			}
+		}
+	}
+	function GetGroupData(res)
+	{
+		if(res)
+		{
+			//console.log(res);
+			var gd_obj = JSON.parse(res);
+			console.log(gd_obj);
+			if(gd_obj && gd_obj.last_modified_time)
+			{
+				gd_last_modified_time = gd_obj.last_modified_time;
+				document.getElementById('modified_time_tag').innerHTML = "Last modified time : " + gd_obj.last_modified_time;
+				if(gd_obj.admin_name)
+					document.getElementById('admin_edit').value = gd_obj.admin_name;
+				if(gd_obj.phone_num)
+					document.getElementById('phone_num_edit').value = gd_obj.phone_num;
+				if(gd_obj.email_addr)
+					document.getElementById('email_addr_edit').value = gd_obj.email_addr;
+				if(gd_obj.group_status)
+					document.getElementById('gs_edit').value = gd_obj.group_status;
+				if(gd_obj.office)
+					document.getElementById('office_edit').value = gd_obj.office;
+				if(gd_obj.data_modifier)
+					document.getElementById('modifier_static').innerHTML = "Modifier(UserID) : " + gd_obj.data_modifier;
+				if(gd_obj.group_name && !group_name)
+					document.getElementById('gn_display').innerHTML = gd_obj.group_name;
+			}
+		}
+		else if(!group_name)
+		{
+			HttpGetAsync('/login_proc/get_userdata' ,GetUserData);
+		}
+	}
+	function DisableAllEdit()
+	{
+		document.getElementById('gs_edit').disabled = true;
+		document.getElementById('admin_edit').disabled = true;
+		document.getElementById('phone_num_edit').disabled = true;
+		document.getElementById('email_addr_edit').disabled = true;
+		document.getElementById('office_edit').disabled = true;
+		document.getElementById('submit_btn').style.visibility = "hidden";
+	}
+	function EnableAllEdit()
+	{
+		document.getElementById('gs_edit').disabled = false;
+		document.getElementById('admin_edit').disabled = false;
+		document.getElementById('phone_num_edit').disabled = false;
+		document.getElementById('email_addr_edit').disabled = false;
+		document.getElementById('office_edit').disabled = false;
+		document.getElementById('submit_btn').style.visibility = "visible";
+	}
+	function InitPage()
+	{
+		DisableAllEdit();
+		HttpGetAsync('/group_page/get_groupdata',GetGroupData);
+		setInterval(function(){ 
+									if(document.getElementById('admin_edit').disabled) 
+										HttpGetAsync('/group_page/get_groupdata' + (gd_last_modified_time ? ("/" + gd_last_modified_time) : '') ,GetGroupData);
+									//console.log("Timer alter");
+								} ,
+								1000);
+	}
+	function AlterBtnOnClicked()
+	{
+		if(document.getElementById('admin_edit').disabled)
+		{
+			EnableAllEdit();
+			document.getElementById('alter_btn').style.borderWidth = "2px";
+		}
+		else
+		{
+			DisableAllEdit();
+			document.getElementById('alter_btn').style.borderWidth = "0px";
+		}
+	}
+</script>
+</body>
+</html>

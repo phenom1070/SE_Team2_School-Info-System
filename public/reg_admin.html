@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register admin</title>
+<style>
+	body
+	{
+		font-family : Microsoft JhengHei;
+		overflow : auto;
+	}
+	hr
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	.ch_edit
+	{
+		position : absolute;
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	.ch_edit:hover
+	{
+		border-color : #00FFFF;
+	}
+	.ch_edit:focus
+	{
+		box-shadow : 5px 5px 5px rgba(0,0,0,0.4);
+	}
+	.chs_edit:disabled
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+	}
+	.chs_edit:enabled
+	{
+		background-color : rgba(0,0,0,0);
+		color : black;
+	}
+	.panel
+	{
+		position : absolute;
+		top : 70px;
+		left : 5px;
+		width : 640px;
+		height : 800px;
+		margin-top : 0;
+		margin-left : 0; 
+	}
+	.container
+	{
+		position : absolute;
+		top : 60px;
+		left : 0px;
+		width : 100%;
+		height : 100%;
+	}
+	#register_admin_title
+	{
+		position : fixed;
+		color : #0077CC;
+		font-size : 40px;
+		z-index : 2;
+		width : 100%;
+		left : 0px;
+		top : 0px;
+		height : 60px;
+		background-color : rgba(0,0,0,0.4);
+	}
+	#password_box
+	{
+		position : absolute;
+		width : 100%;
+		top : 220px;
+		left : 0px;
+		height : 250px;
+		border-radius: 20px;
+		border-width : 2px;
+		border-style : solid;
+		border-color : #0077CC;
+	}
+	#name_box
+	{
+		position : absolute;
+		width : 100%;
+		top : 0;
+		left : 0;
+		height : 200px;
+		border-radius: 20px;
+		border-width : 2px;
+		border-style : solid;
+		border-color : #0077CC;
+	}
+	#admin_id_label
+	{
+		position : absolute;
+		width : 100%;
+		height : 30px;
+		left : 10px;
+		top : 10px;
+		font-size : 20px;
+	}
+	#admin_id_edit
+	{
+		position : absolute;
+		width : 320px;
+		height : 40px;
+		left : 10px;
+		top : 40px;
+		font-size : 28px;
+	}
+	#admin_password_label
+	{
+		position : absolute;
+		width : 100%;
+		height : 30px;
+		left : 10px;
+		top : 0px;
+		font-size : 20px;
+	}
+	#admin_password_edit
+	{
+		position : absolute;
+		width : 320px;
+		height : 40px;
+		left : 10px;
+		top : 30px;
+		font-size : 28px;
+	}
+	
+	#admin_psw_again_label
+	{
+		position : absolute;
+		width : 100%;
+		height : 30px;
+		left : 10px;
+		top : 90px;
+		line-height : 10px;
+		font-size : 20px;
+	}
+	#admin_psw_again_edit
+	{
+		position : absolute;
+		width : 320px;
+		height : 40px;
+		left : 10px;
+		top : 110px;
+		font-size : 28px;
+	}
+	#submit_btn
+	{
+		position : absolute;
+		width : 100%;
+		height : 40px;
+		left : 0;
+		top : 500px;
+		font-size : 30px;
+		border-width : 0px;
+		background-color : #0077CC;
+		color : white;
+		font-weight : bold;
+		box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+	}
+	#submit_btn:hover 
+	{
+    opacity: 0.8;
+	}
+	#group_name_select
+	{
+		position : absolute;
+		left : 350px;
+		top :  40px;
+		width : 200px;
+		height : 45px;
+		font-size : 28px;
+	}
+	#group_name_label
+	{
+		position : absolute;
+		left : 350px;
+		top : 10px;
+		width : 200px;
+		height : 30px;
+		font-size : 20px;
+	}
+	#admin_id_result
+	{
+		position : absolute;
+		left : 10px;
+		top : 170px;
+		width : 320px;
+		height : 30px;
+		font-size : 20px;
+		color : red;
+	}
+	#admin_password_result
+	{
+		position : absolute;
+		left : 10px;
+		top : 160px;
+		width : 320px;
+		height : 30px;
+		font-size : 20px;
+		color : red;
+	}
+	#real_name_label
+	{
+		position : absolute;
+		left : 		10px;
+		top : 		100px;
+		height : 	30px;
+		font-size : 20px;
+	}
+	#real_name_edit
+	{
+		position : absolute;
+		width : 320px;
+		height : 40px;
+		left : 10px;
+		top : 130px;
+		font-size : 28px;
+	}
+	#gender_label
+	{
+		position : absolute;
+		left : 350px;
+		top : 100px;
+		height : 30px;
+		font-size : 20px;
+	}
+	#male_sel
+	{
+		position : absolute;
+		left : 350px;
+		top : 130px;
+		height : 40px;
+	}
+	#male_label
+	{
+		position : absolute;
+		left : 370px;
+		top : 130px;
+		height : 10px;
+		line-height: 40px;
+		color : blue;
+	}
+	#female_sel
+	{
+		position : absolute;
+		left : 410px;
+		top : 130px;
+		height : 40px;
+	}
+	#female_label
+	{
+		position : absolute;
+		left : 430px;
+		top : 130px;
+		height : 10px;
+		line-height: 40px;
+		color : red;
+	}
+</style>
+</head>
+<body onload="InitPage()">
+<div id="register_admin_title">Register Admin<hr></div>
+<form class="panel" id="register_form" action="/admin_page/reg_admin_proc" method="POST">
+    <div class="container">
+      <div id="name_box">
+      	<label id="admin_id_label" for="admin_id_edit">ID</label>
+      	<input class="ch_edit" id="admin_id_edit" type="text" placeholder="Enter ID" name="admin_id" maxlength="256" required>
+      	<label id="group_name_label" for="group_name_select">Group</label>
+      	<select class="ch_edit" form="register_form" name="group_name" id="group_name_select">
+      		
+      	</select>
+      	<label id="real_name_label" for="real_name_edit">Real name</label>
+      	<input class="ch_edit" id="real_name_edit" type="text" placeholder="Enter name" name="real_name" maxlength="256" required>
+      	<label id="gender_label" >Gender</label>
+      	<input id="male_sel" type="radio" name="gender" value="M" form="register_form" checked> <label for="male_sel" id="male_label">Male</label>
+  			<input id="female_sel" type="radio" name="gender" value="F" form="register_form"> <label for="female_sel" id="female_label">Female</label>
+      	<div id="admin_id_result"></div>
+      </div>
+
+      <div id="password_box">
+      	<label id="admin_password_label" for="admin_password_edit">Password</label>
+      	<input class="ch_edit" id="admin_password_edit" type="password" maxlength="256" placeholder="Enter Password" name="admin_password" required>
+      
+      	<label id="admin_psw_again_label" for="admin_psw_again_edit">Enter password again</label>
+      	<input class="ch_edit" id="admin_psw_again_edit" type="password" maxlength="256" placeholder="Enter Password again" name="admin_password_again" required>
+      	<div id="admin_password_result"></div>
+      </div>
+			
+			<button id="submit_btn" type="submit">Submit</button>        
+    </div>
+  </form>
+<script>
+	var group_name_array;
+	function HttpGetAsync(theUrl, callback)
+	{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send();
+	}
+	function GetAllGroupName(response)
+	{
+		var res_obj = JSON.parse(response);
+	  group_name_array = res_obj.gn_array;
+	  ResetGroupSelectItem();
+	}
+	function RemoveAllGroupSelectItem()
+	{
+		var group_sel_box = document.getElementById('group_name_select');
+		for(var i = 0;i < group_sel_box.length;i++)
+			group_sel_box.remove(i);
+	}
+	function ResetGroupSelectItem()
+	{
+		RemoveAllGroupSelectItem();
+		var group_sel_box = document.getElementById('group_name_select');
+		for(var i = 0;i < group_name_array.length;i++)
+		{
+			var option = document.createElement("option");
+    	option.text = group_name_array[i];
+    	group_sel_box.add(option);
+		}
+	}
+	function GetRegResult(result)
+	{
+		if(result)
+		{
+			var res_obj = JSON.parse(result);
+			if(res_obj.result)
+				alert(res_obj.result);
+			if(res_obj.errcode == 5) //CH_ERROR_USERID = 5;
+			{
+				document.getElementById('admin_id_result').innerHTML = res_obj.msg;
+			}
+			if(res_obj.errcode == 6) //CH_ERROR_PASSWORD = 6;
+			{
+				document.getElementById('admin_password_result').innerHTML = res_obj.msg;
+			}
+			if(res_obj.errcode != 0) //CH_ERROR_SUCCESS = 0;
+			{
+				document.getElementById("admin_id_edit").value = res_obj.new_admin_id_remain;
+			 	document.getElementById("group_name_select").value = res_obj.group_name_remain;
+			}
+		}
+	}
+	function InitPage()
+	{
+		HttpGetAsync("/login_proc/get_all_group",GetAllGroupName);
+		HttpGetAsync("/admin_page/get_reg_result",GetRegResult);
+	}
+</script>
+</body>
+</html>

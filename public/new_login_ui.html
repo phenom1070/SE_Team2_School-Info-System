@@ -1,0 +1,263 @@
+<!--login_ui-->
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" type="image/x-icon" href="/img/default_icon" />
+<title>NKUST Login</title>
+<style>
+	body
+	{
+		font-family : Microsoft JhengHei;
+		background-color : white;
+		background-image : url('/img/default_bg');
+		background-size : cover;
+	}
+	hr
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	label
+	{
+		position : absolute;
+		color : #0077CC;
+		font-size : 18px;
+	}
+	.chs_edit
+	{
+		position : absolute;
+		border-style : solid;
+		border-color : #0077CC;
+		border-width : 2px;
+		color : white;
+		height : 40px;
+		font-size : 26px;
+		background-color : rgba(0,0,0,0);
+	}
+	.chs_edit:hover
+	{
+		border-color : #00FFFF;
+	}
+	.chs_edit:focus
+	{
+		box-shadow : 5px 5px 5px rgba(0,0,0,0.4);
+	}
+	.chs_title
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+		font-size : 40px;
+		
+	}
+	.client_area
+	{
+		position : fixed;
+		z-index: 1;
+		left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* disable scroll */
+    background-color : rgba(0,0,0,0);
+	}
+	.link_btn
+	{
+		position : absolute;
+		color : #0077CC;
+		border-width : 0px;
+		text-decoration: underline;
+		background-color : rgba(0,0,0,0);
+		outline-width : 0px;
+	}
+	.link_btn:hover
+	{
+		color : #00FFFF;
+	}
+	.error_display
+	{
+		position : absolute;
+		font-size : 18px;
+		color : red;
+		height : 30px;
+	}
+	#login_panel
+	{
+		position : fixed;
+		z-index : 2;
+		right : 0px;
+		top : 0;
+		height : 100%;
+		width : 640px;
+		box-shadow: -2px 5px 5px 5px  rgba(0,0,0,0.4);
+		background-color : rgba(0,0,0,0.8);
+	}
+	#caption
+	{
+		position : absolute;
+		left : 0px;
+		top : 0px;
+		width : 100%;
+		height : 60px;
+	}
+	.child_panel
+	{
+		position : absolute;
+		width : 630px;
+		left : 5px;
+	}
+	#name_box
+	{
+		top : 100px;
+		height : 100px;
+	}
+	#psw_box
+	{
+		top : 210px;
+		height : 100px;
+	}
+	#login_form
+	{
+		bottom : 60px;
+	}
+	#login_btn
+	{
+		position : absolute;
+		left : 5px;
+		width : 320px;
+		height : 40px;
+		color : white;
+		background-color : #0077CC;
+		box-shadow:5px 5px 5px rgba(0,0,0,0.4);
+		border-width : 0px;
+	}
+	#login_btn:hover
+	{
+		opacity : 0.8;
+	}
+	#reg_btn
+	{
+		left : 335px;
+		width : 100px;
+		height : 40px;
+	}
+	#user_id_edit
+	{
+		left : 10px;
+		top : 40px;
+		width : 400px;
+	}
+	#user_id_label
+	{
+		left : 10px;
+		top : 10px;
+	}
+	#id_error_display
+	{
+		left : 10px;
+		top : 90px;
+	}
+	#psw_error_display
+	{
+		left : 10px;
+		top : 90px;
+	}
+	#psw_edit
+	{
+		left : 10px;
+		top : 40px;
+		width : 400px;
+	}
+	#psw_label
+	{
+		left : 10px;
+		top : 10px;
+	}
+	#goto_reg
+	{
+		visibility : hidden;
+	}
+	/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+</style>
+</head>
+<body onload="InitPage()">
+<div class="client_area animate">
+	<div id="login_panel" >
+		<div class="chs_title" id="caption">Login<hr></div>
+		<div class="child_panel" id="name_box">
+			<label id="user_id_label" for="user_id_edit">UserID</label>
+			<input class="chs_edit" id="user_id_edit" type="text" form="login_form" placeholder="Enter ID" name="user_id" maxlength="256" required>
+			<div class="error_display" id="id_error_display"></div>
+		</div>
+		<div class="child_panel" id="psw_box">
+			<label id="psw_label" for="psw_edit">Password</label>
+			<input class="chs_edit" id="psw_edit" type="password" form="login_form" placeholder="Enter password" name="password" maxlength="256" required>
+			<div class="error_display" id="psw_error_display"></div>
+		</div>
+		<form class="child_panel" id="login_form" action="/login_proc/login" method="post">
+				<button id="login_btn" type="submit" form="login_form">Login</button>
+				<button type="submit" class="link_btn" id="reg_btn" form="goto_reg" name="reg">Register</button>
+		</form>
+		<form id="goto_reg" action="/reg_proc" method="get"></form>
+	</div>
+</div>
+<script>
+	function HttpGetAsync(theUrl, callback)
+	{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send();
+	}
+	function GetError(res)
+	{
+		if(res)
+		{
+			console.log(res);
+			var err_obj = JSON.parse(res);
+			if(err_obj.errcode == 5)//CH_ERROR_USERID = 5;
+				document.getElementById('id_error_display').innerHTML = err_obj.msg;
+															
+			if(err_obj.errcode == 6)//CH_ERROR_PASSWORD = 6;
+				document.getElementById('psw_error_display').innerHTML = err_obj.msg;
+				
+			if(err_obj.errcode != 0)
+			{
+				document.getElementById('user_id_edit').value = err_obj.id_remain;
+			}
+		}
+	}
+	function GetNewRegUserId(res)
+	{
+		if(res)
+		{
+			var un_obj = JSON.parse(res);
+			if(un_obj.errcode == 0)//CH_ERROR_SUCCESS
+				document.getElementById('user_id_edit').value = un_obj.new_user_id;
+		}
+	}
+	function InitPage()
+	{
+		HttpGetAsync('/reg_proc/get_reg_name',GetNewRegUserId);
+		HttpGetAsync('/login_proc/get_error',GetError);
+	}
+</script>
+</body>
+</html>

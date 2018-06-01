@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Invalid path(Error 404)</title>
+<style>
+	body
+	{
+		font-family : Microsoft JhengHei;
+		background-color : white;
+	}
+	hr
+	{
+		border-width : 2px;
+		border-color : #0077CC;
+		border-style : solid;
+	}
+	.chs_title
+	{
+		background-color : rgba(0,0,0,0.4);
+		color : #0077CC;
+		font-size : 40px;
+		z-index : 2;
+	}
+	.client_area
+	{
+		position : fixed;
+		z-index: 1;
+		left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
+    background-color : rgba(0,0,0,0);
+	}
+	#caption
+	{
+		position : fixed;
+		left : 0px;
+		top : 0px;
+		width : 100%;
+		height : 60px;
+	}
+	#label_area
+	{
+		position : absolute;
+		font-family : Lucida Console;
+		left : 0px;
+		top : 80px;
+		width : 100%;
+		height : 100%;
+		color : white;
+		background : blue;
+		font-size : 20px;
+	}
+</style>
+</head>
+<body>
+<div class="client_area">
+	<div class="chs_title" id="caption">Invalid path<hr></div>
+	<div id="label_area">
+			A problem has been detected and we show you this page to prevent you get any further problem.<br>
+			<br>
+			CH_ERROR_INVALID_PATH(ERROR 404)<br>
+			<br>
+			If this is the first time you've seen this error page,<br>
+			Please try to input the correct URL path. If this page appears again, follow <br>  
+			these steps:<br>
+			<br>
+			Check to make sure any word you type is correctly and try to request server again.<br>
+	</div>
+</div>
+</body>
+</html>
