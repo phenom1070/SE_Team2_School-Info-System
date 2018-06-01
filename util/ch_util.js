@@ -1,0 +1,30 @@
+module.exports = {
+	FixStr : function(str){
+		return str.replace(/\'/g,"\\'");
+	},
+GetCurrentTimeTag:function(){
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;
+		month = (month < 10 ? '0':'') + month;
+		var day  = date.getDate();
+		day = (day < 10 ? '0':'') + day;
+		var hour = date.getHours();
+		hour = (hour < 10 ? '0':'') + hour;
+		var minute  = date.getMinutes();
+		minute = (minute < 10 ? '0':'') + minute;
+		var sec  = date.getSeconds();
+		sec = (sec < 10 ? '0':'') + sec;
+		var millisecond = date.getMilliseconds();
+		if(millisecond < 100 && millisecond > 10)
+			millisecond = '0' + millisecond;
+		if(millisecond < 10)
+			millisecond = "00" + millisecond;
+		else
+			millisecond = '' + millisecond;
+		return (time_tag = year + '.' + month + '.' + day + '.' + hour + ':' + minute + ':' + sec + ':' + millisecond);
+	},
+	IsFunction : function (func_to_chk) {
+ 				return func_to_chk && {}.toString.call(func_to_chk) === '[object Function]';
+			}
+};

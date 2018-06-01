@@ -1,0 +1,2 @@
+global.CH_GA_REQUEST = 0;
+global.CH_GA_ACCEPT = 1;
